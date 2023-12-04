@@ -1,0 +1,7 @@
+{
+  "DatabaseSettings": {
+    // "ConnectionString": "Server=service.startech.info.bd,51024;Database=dbStartech;User Id=sa; Password=Talukder#1999 ;integrated security=false; TrustServerCertificate=True;",
+    "ConnectionString": "Server=103.126.14.58,1314;Database=dbStartech;User Id=sa; Password=T$uDC@2019 ;integrated security=false; TrustServerCertificate=True;",
+    "Timeout": "2"
+  }
+}

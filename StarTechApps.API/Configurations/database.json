@@ -1,0 +1,5 @@
+{
+  "DatabaseSettings": {
+    "ConnectionString": "Server=103.126.14.58,1314;Database=dbStartech;User Id=sa; Password=T$uDC@2019 ;integrated security=false; TrustServerCertificate=True;"
+  }
+}
