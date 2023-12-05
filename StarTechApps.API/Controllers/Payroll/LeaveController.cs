@@ -25,18 +25,17 @@ namespace StarTechApps.API.Controllers.Payroll
         {
             return Ok(await _mediatr.Send(new LeaveApplyQuery { leaveApply = model }));
         }
-        //[HttpGet("leave/Get-Leave-Status/{EmpCode}/{PeriodID}/{CompanyID}/{Grade}/{Gender}")]
-        //public async Task<IActionResult> GetLeaveStatus(string EmpCode, int PeriodID, int CompanyID, int Grade, int Gender)
-        //{
-        //    return Ok(await _mediatr.Send(new GetLeaveStatusQuery { EmpCode = EmpCode, PeriodID = PeriodID, CompanyID = CompanyID, Grade = Grade, Gender = Gender }));
-        //}
-        #endregion // Leave Apply end
-
-        [HttpGet("leave/GetLeaveInfo/{EmpCode}/{CompanyID}")]
+        [HttpGet("leave/Get-Leave-Status/{EmpCode}/{PeriodID}/{CompanyID}/{Grade}/{Gender}")]
+        public async Task<IActionResult> GetLeaveStatus(string EmpCode, int PeriodID, int CompanyID, int Grade, int Gender)
+        {
+            return Ok(await _mediatr.Send(new GetLeaveStatusQuery { EmpCode = EmpCode, PeriodID = PeriodID, CompanyID = CompanyID, Grade = Grade, Gender = Gender }));
+        }
+        [HttpGet("leave/Get-Leave-Info/{EmpCode}/{CompanyID}")]
         public async Task<IActionResult> GetLeaveInfo(string EmpCode, int CompanyID)
         {
             return Ok(await _mediatr.Send(new GetLeaveInfoQuery { EmpCode = EmpCode, CompanyID = CompanyID }));
         }
+        #endregion // Leave Apply end
 
         [HttpGet("leave/getLeaveInfoStatus/{EmpCode}/{CompanyID}")]
         public async Task<IActionResult> getLeaveInfoStatus(string EmpCode, int CompanyID)
