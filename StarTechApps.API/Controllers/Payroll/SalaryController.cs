@@ -22,10 +22,10 @@ namespace StarTechApps.API.Controllers.Payroll
             return Ok(await _mediatr.Send(new GetSalaryPeriodQuery {companyID = companyID }));
         }
 
-        [HttpGet("salary/get-rpt-loaninfoledgerreport/{empCode}/{companyID}/{department}/{loanType}/{branch}/{grade}/{projectId}/{startdate}/{endtime}")]
-        public async Task<IActionResult> GetRptLoanInfoLedgerReport(string empCode, int companyID, string department, int loanType, int branch, int grade, int projectId, string startdate, string endtime)
+        [HttpGet("salary/get-rpt-loaninfoledgerreport/{empCode}/{companyID}")]
+        public async Task<IActionResult> GetRptLoanInfoLedgerReport(string empCode, int companyID)
         {
-            return Ok(await _mediatr.Send(new GetLoanInfoLedgerReportQuery { empCode = empCode, companyID = companyID, department = department, loanType = loanType, branch = branch, grade = grade, projectId = projectId, startdate = startdate, endtime = endtime }));
+            return Ok(await _mediatr.Send(new GetLoanInfoLedgerReportQuery { empCode = empCode, companyID = companyID}));
        
         }
 

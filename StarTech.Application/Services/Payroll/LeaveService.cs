@@ -14,16 +14,14 @@ using System.Threading.Tasks;
 
 namespace StarTech.Application.Services.Payroll
 {
+
     public class LeaveService : ILeaveService
     {
-        // private readonly IMapper _mapper;
+       
         private readonly ILeaveRepository _repository;
 
-        public LeaveService(ILeaveRepository repository)
-        {
-            //  _mapper = mapper;
-            _repository = repository;
-        }
+        public LeaveService(ILeaveRepository repository) => _repository = repository;
+       
         public async Task<bool> SaveLeaveApplication(LeaveApplyModel model) => await _repository.SaveLeaveApplication(model);
         public async Task<bool> LeaveApply(LeaveApplyModel model) => await _repository.LeaveApply(model);
         public async Task<IEnumerable<LeaveTypeModel>> GetLeaveType(int gradeValue, int gender) => await _repository.GetLeaveType(gradeValue, gender);
@@ -33,7 +31,7 @@ namespace StarTech.Application.Services.Payroll
 
         public async Task<IEnumerable<EmpGradeModel>> GetEmpGrade() => await _repository.GetEmpGrade();
 
-        public async Task<IEnumerable<GetLeaveStatusModel>> GetLeaveStatus(string EmpCode, int PeriodID, int CompanyID, int Grade, int Gender) => await _repository.GetLeaveStatus(EmpCode,PeriodID,CompanyID,Grade,Gender);
+        public async Task<IEnumerable<GetLeaveStatusModel>> GetLeaveStatus(string EmpCode, int CompanyID, int PeriodID) => await _repository.GetLeaveStatus(EmpCode,CompanyID,PeriodID);
 
         public async Task<List<LeaveApplyModel>> GetLeaveInfo(int compId, string empCode)=> await _repository.GetLeaveInfo(compId,empCode);
 
@@ -45,9 +43,11 @@ namespace StarTech.Application.Services.Payroll
 
         public async Task<bool> ApproveByHr(LeaveDetailsViewModel leaveDetailsVm)=> await _repository.ApproveByHr(leaveDetailsVm);
 
-        public async Task<List<LeaveApplyViewModel>> GetLeaveInfoForHrApprove(int compId) => await _repository.GetLeaveInfoForHrApprove(compId);
+        public async Task<List<LeaveApplyViewModel>> GetLeaveInfoForHrApprove(int compId,string ReportTo) => await _repository.GetLeaveInfoForHrApprove(compId, ReportTo);
 
         public async Task<bool> CancelByHr(int leaveId) => await _repository.CancelByHr(leaveId);
+
+        public async Task<bool> UpdateByAuthority(UpdateByAuthorityModel leaveInfo)=> await _repository.UpdateByAuthority(leaveInfo);
         
     }
 }

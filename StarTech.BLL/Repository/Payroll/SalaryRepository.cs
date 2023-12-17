@@ -16,7 +16,7 @@ namespace StarTech.BLL.Repository.Payroll
         {
 
         }
-        public async Task<IEnumerable<PaySlipModel>> GetPaySlip(string EmpCode, int PeriodID, int CompanyID, string Department)
+        public async Task<IEnumerable<PaySlipModel>> GetPaySlip(string EmpCode, int PeriodID, int CompanyID,string department)
         {
             using var con = new SqlConnection(Connection.ConnectionString());
             List<PaySlipModel> result = con.Query<PaySlipModel>("SP_API_Getpayslip_NI",
@@ -25,7 +25,8 @@ namespace StarTech.BLL.Repository.Payroll
                     EmpCode,
                     PeriodID,
                     CompanyID,
-                    Department
+                    department
+                    
                 },
 
              commandType: CommandType.StoredProcedure).ToList();
@@ -45,22 +46,14 @@ namespace StarTech.BLL.Repository.Payroll
             return result;
         }
 
-        public async Task<IEnumerable<RptLoanInfoLedgerModel>> GetRptLoanInfoLedgerReport(string empCode, int companyID, string department, int loanType, int branch, int grade, int projectId, string startdate, string endtime)
+        public async Task<IEnumerable<RptLoanInfoLedgerModel>> GetRptLoanInfoLedgerReport(string empCode, int companyID)
         {
             using var con = new SqlConnection(Connection.ConnectionString());
             List<RptLoanInfoLedgerModel> result = con.Query<RptLoanInfoLedgerModel>("spRptLoanInfoLedgerReport",
                 param: new
                 {
                     empCode,
-                    companyID,
-                    department,
-                    loanType,
-                    branch,
-                    grade,
-                    projectId,
-                    startdate,
-                    endtime
-
+                    companyID
                 },
                 commandType: CommandType.StoredProcedure).ToList();
             return result;

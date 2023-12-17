@@ -10,12 +10,14 @@ namespace StarTech.Model.Payroll
     {
         public int id { get; set; }
         public string EmpCode { get; set; }
-       
+        public string EmpName { get; set; }
+        public string Designation { get; set; }
+        public string AccountName { get; set; }
         public string LoanDate { get; set; }
         public int SalaryHeadID { get; set; }
         public int InstallmentStart { get; set; }
-
         public double LoanAmount { get; set; }
+        public double Paid { get; set; }
         public double DownPayment { get; set; }
         public double NetLoan { get; set; }
         public int NoofInstallment { get; set; }

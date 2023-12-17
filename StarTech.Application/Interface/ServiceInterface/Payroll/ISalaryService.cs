@@ -9,10 +9,10 @@ namespace StarTech.Application.Interface.ServiceInterface.Payroll
 {
     public interface ISalaryService
     {
-        Task<IEnumerable<PaySlipModel>> GetPaySlip(string empCode, int periodID, int companyID, string department);
+        Task<IEnumerable<PaySlipModel>> GetPaySlip(string empCode, int periodID, int companyID,string department);
         Task<IEnumerable<SalaryPeriodModel>> GetPeriodList(int companyID);
 
-        Task<IEnumerable<RptLoanInfoLedgerModel>> GetRptLoanInfoLedgerReport(string empCode, int companyID, string department, int loanType, int branch, int grade, int projectId, string startdate, string endtime);
+        Task<IEnumerable<RptLoanInfoLedgerModel>> GetRptLoanInfoLedgerReport(string empCode, int companyID);
 
     }
 }

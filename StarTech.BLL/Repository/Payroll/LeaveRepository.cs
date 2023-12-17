@@ -98,12 +98,14 @@ namespace StarTech.BLL.Repository.Payroll
             {
                 leaveApply.ID,
                 leaveApply.EmpCode,
-                LSDate = leaveApply.Date_From,
-                LEDate = leaveApply.Date_To,
-                LADate = leaveApply.Apply_Date,
-                LTypedID = leaveApply.LeaveType,
-                referanceEmpcode=leaveApply.Alter_Empcode,
-                WithPay=leaveApply.Is_Leave_Payable,
+                LSDate = leaveApply.StartDate,
+                LEDate = leaveApply.EndDate,
+                LADate = leaveApply.ApplicationDate,
+                LTypedID = leaveApply.LeaveTypedID,
+                leaveApply.AccepteDuration,
+                leaveApply.UnAccepteDuration,
+                referanceEmpcode =leaveApply.ReferanceEmpcode,
+                leaveApply.Withpay,
                 AppType=0,
                 CompanyID=1,
                 YYYYMMDD="",
@@ -111,9 +113,9 @@ namespace StarTech.BLL.Repository.Payroll
                 leaveApply.Reason,
                 leaveApply.EmgContructNo,
                 leaveApply.EmgAddress,
-                UserName=leaveApply.UserId
+                
             };
-            int rowAffect = await con.ExecuteAsync("INSertupdateLeaveInfoApp", param: applyObj, commandType: CommandType.StoredProcedure);
+            int rowAffect = await con.ExecuteAsync("INSertupdateLeaveInfo_IN", param: applyObj, commandType: CommandType.StoredProcedure);
             return rowAffect > 0;
             
 
@@ -147,16 +149,14 @@ namespace StarTech.BLL.Repository.Payroll
             return rowaffect > 0;
         }
     
-        public async Task<IEnumerable<GetLeaveStatusModel>> GetLeaveStatus(string EmpCode, int PeriodID, int CompanyID, int Grade, int Gender)
+        public async Task<IEnumerable<GetLeaveStatusModel>> GetLeaveStatus(string EmpCode, int CompanyID, int PeriodID)
         {
             var con = new SqlConnection(Connection.ConnectionString());
             var peram = new
             {
                 EmpCode,
-                PeriodID,
                 CompanyID,
-                Grade,
-                Gender
+                PeriodID
             };
             var applications = await con.QueryAsync<GetLeaveStatusModel>("spRptLeaveStatusShow", param: peram, commandType: CommandType.StoredProcedure);
             return applications.ToList();
@@ -170,7 +170,7 @@ namespace StarTech.BLL.Repository.Payroll
                 CompanyID = compId,
                 EmpCode = empCode
             };
-            var leaveInfo = await con.QueryAsync<LeaveApplyModel>("sp_LeaveInfo_List", param: peram, commandType: CommandType.StoredProcedure);
+            var leaveInfo = await con.QueryAsync<LeaveApplyModel>("sp_LeaveInfo_List_NI", param: peram, commandType: CommandType.StoredProcedure);
             return leaveInfo.ToList();
         }
      
@@ -200,7 +200,7 @@ namespace StarTech.BLL.Repository.Payroll
             };
 
 
-            var applications = await GetData<LeaveApplyViewModel,dynamic>("sp_GetLeaveWaitforApproveAll",paramObj);
+            var applications = await GetData<LeaveApplyViewModel,dynamic>("sp_GetLeaveWaitforApproveAll_NI", paramObj);
 
             return applications.ToList();
             
@@ -262,16 +262,14 @@ namespace StarTech.BLL.Repository.Payroll
             }
         }
 
-        public async Task<List<LeaveApplyViewModel>> GetLeaveInfoForHrApprove(int compId)
+        public async Task<List<LeaveApplyViewModel>> GetLeaveInfoForHrApprove(int compId, string ReportTo)
         {
 
-            
-            //var applications = await GetData<LeaveApplyViewModel,dynamic>("sp_GetLeaveApproveForHR", new { CompanyID = compId });
-            //return applications.ToList();   
+           
 
             using (var con = new SqlConnection(Connection.ConnectionString()))
             {
-                var applications = await con.QueryAsync<LeaveApplyViewModel>("sp_GetLeaveApproveForHR", param: new { companyid = compId }, commandType: CommandType.StoredProcedure);
+                var applications = await con.QueryAsync<LeaveApplyViewModel>("sp_GetLeaveApproveForHR", param: new { companyid = compId, ReportTo =  ReportTo }, commandType: CommandType.StoredProcedure);
                 return applications.ToList();
             }
 
@@ -304,6 +302,31 @@ namespace StarTech.BLL.Repository.Payroll
                     }
             }
         }
+
+        public async Task<bool> UpdateByAuthority(UpdateByAuthorityModel leaveInfo)
+        {
+            using (var con = new SqlConnection(Connection.ConnectionString()))
+            {
+                var paramObj = new
+                {
+                    leaveInfo.ID,
+                    LSDate = leaveInfo.StartDate,
+                    LEDate = leaveInfo.EndDate,
+                    LADate = leaveInfo.ApplicationDate,
+                    LTypedID = leaveInfo.LeaveTypedID,
+                    leaveInfo.Withpay,
+                    leaveInfo.AccepteDuration,
+                    leaveInfo.UnAccepteDuration,
+                    //leaveInfo.AuthorityEmpcode,
+                    leaveInfo.CompanyID,
+                    leaveInfo.Grandtype,
+                    leaveInfo.AppType
+                };
+                int rowAffect = con.Execute("updateLeaveInfoDHEdite_NI", param: paramObj, commandType: CommandType.StoredProcedure);
+                return rowAffect > 0;
+            }
+        }
+
 
 
         public async Task<IEnumerable<T>> GetData<T, P>(string SName, P parameters)

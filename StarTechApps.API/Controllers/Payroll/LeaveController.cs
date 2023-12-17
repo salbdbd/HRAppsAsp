@@ -25,10 +25,10 @@ namespace StarTechApps.API.Controllers.Payroll
         {
             return Ok(await _mediatr.Send(new LeaveApplyQuery { leaveApply = model }));
         }
-        [HttpGet("leave/Get-Leave-Status/{EmpCode}/{PeriodID}/{CompanyID}/{Grade}/{Gender}")]
-        public async Task<IActionResult> GetLeaveStatus(string EmpCode, int PeriodID, int CompanyID, int Grade, int Gender)
+        [HttpGet("leave/Get-Leave-Status/{EmpCode}/{CompanyID}/{PeriodID}")]
+        public async Task<IActionResult> GetLeaveStatus(string EmpCode, int CompanyID, int PeriodID)
         {
-            return Ok(await _mediatr.Send(new GetLeaveStatusQuery { EmpCode = EmpCode, PeriodID = PeriodID, CompanyID = CompanyID, Grade = Grade, Gender = Gender }));
+            return Ok(await _mediatr.Send(new GetLeaveStatusQuery { EmpCode = EmpCode, CompanyID = CompanyID, PeriodID = PeriodID }));
         }
         [HttpGet("leave/Get-Leave-Info/{EmpCode}/{CompanyID}")]
         public async Task<IActionResult> GetLeaveInfo(string EmpCode, int CompanyID)
@@ -55,11 +55,7 @@ namespace StarTechApps.API.Controllers.Payroll
             return Ok(await _mediatr.Send(new GetLeaveReportQuery { empcode = empcode, startDate = startDate, endDate = endDate, companyID = companyID }));
         }
         
-        //[HttpPost("leave/save-manual-leave-application")]
-        //public async Task<IActionResult> ManualLeaveApplication([FromBody] LeaveApplyModel model)
-        //{
-        //    return Ok(await _mediatr.Send(new SaveLeaveApplicationQuery { leaveApply = model}));
-        //}
+        
 
         [HttpGet("leave/get-leave-application-list/{compId}/{reportTo}")]
         public async Task<IActionResult> GetLeaveApplicationList(int compId, string reportTo)
@@ -92,40 +88,24 @@ namespace StarTechApps.API.Controllers.Payroll
         [HttpPost("leave/UpdateLeaveInfoStatus")]
         public async Task<IActionResult> UpdateLeaveInfoStatus(LeaveInfoStatusModel lis)
         {
-            return Ok(await _mediatr.Send(new UpdateLeaveInfoStatusQuery { Lis = lis })); 
+            return Ok(await _mediatr.Send(new UpdateLeaveInfoStatusQuery { Lis = lis }));
         }
-        //[HttpPost("leave/UpdateLeaveApprove")]
-        //public async Task<IActionResult> UpdateLeaveApprove(List<UpdateLeaveApprove> leaveInfoList)
-        //{
-        //    return Ok(await _mediatr.Send(new UpdateLeaveApproveQuery { la = leaveInfoList }));
 
-        //}
 
-        // [HttpPost("leave/approved-leave")]
-        //public async Task<IActionResult> ApprovedLeave([FromBody] ApprovedModel ent)
-        // {
-        //     return Ok(await _mediatr.Send(new UpdateLeaveStatusQuery { UpdateLeaveStatus = ent }));
-        // }
-        // [HttpPost("leave/cancel-leave")]
-        // public async Task<IActionResult> CancelLeave([FromBody] ApprovedModel ent)
-        // {
-        //     return Ok(await _mediatr.Send(new UpdateLeaveStatusQuery { type = 3, id = ent.ID, reqFrom = ent.ReqFrom, companyID = ent.CompanyID, reqTo = "", remarks = ent.Remarks }));
-        // }
-
-        // [HttpPost("leave/recommend-leave")]
-        // public async Task<IActionResult> RecommendLeave([FromBody] ApprovedModel ent)
-        // {
-        //    return Ok(await _mediatr.Send(new UpdateLeaveStatusQuery { type = 2, id = ent.ID, reqFrom = ent.ReqFrom, companyID = ent.CompanyID, reqTo = "", remarks = ent.Remarks }));
-        // }
-
+        [HttpPost("leave/UpdateByAuthority")]
+        public async Task<IActionResult> UpdateByAuthority(UpdateByAuthorityModel lis)
+        {
+            return Ok(await _mediatr.Send(new UpdateAuthorityQuery { updateAuthoRity = lis })); 
+        }
+       
 
         #endregion //leave approval end
 
         #region //leave approval by HR start
-        [HttpGet("leave/GetLeaveInfoForHrApprove/{compId}")]
-        public async Task<IActionResult> GetLeaveInfoForHrApprove(int compId)
+        [HttpGet("leave/GetLeaveInfoForHrApprove/{compId}/{ReportTo}")]
+        public async Task<IActionResult> GetLeaveInfoForHrApprove(int compId, string ReportTo)
         {
-            return Ok(await _mediatr.Send(new GetLeaveInfoForHrApproveQuery { compId = compId })); ;
+            return Ok(await _mediatr.Send(new GetLeaveInfoForHrApproveQuery { compId = compId,ReportTo = ReportTo })); ;
         }
 
         [HttpPost("leave/ApproveByHr")]
@@ -142,11 +122,7 @@ namespace StarTechApps.API.Controllers.Payroll
 
         #endregion //leave approval by HR end
 
-        //[HttpPost("leave/UpdateAndApproveByHr")]
-        //public async Task<IActionResult> UpdateAndApproveByHr(LeaveApplyModel la)
-        //{
-        //    return Ok(await _mediatr.Send(new UpdateAndApproveByHrQuery { la = la }));
-        //}
+        
 
 
     }

@@ -14,16 +14,8 @@ namespace StarTech.Application.Queries.Payroll
 
 
         public string empCode { get; set; } 
-       
         public int companyID { get; set; }
-        public int projectId { get; set; }
-        public int loanType { get; set; }
-        public int branch { get; set; }
-        public int grade { get; set; }
        
-        public string department { get; set; }
-        public string startdate { get; set; }
-        public string endtime { get; set; }
         public class Handler : IRequestHandler<GetLoanInfoLedgerReportQuery, List<RptLoanInfoLedgerModel>>
         {
             private readonly ISalaryService _service;
@@ -36,7 +28,7 @@ namespace StarTech.Application.Queries.Payroll
 
             public async Task<List<RptLoanInfoLedgerModel>> Handle(GetLoanInfoLedgerReportQuery request, CancellationToken cancellationToken)
             {
-                var result = await _service.GetRptLoanInfoLedgerReport(request.empCode, request.companyID, request.department,request.projectId,request.loanType,request.branch,request.grade,request.startdate,request.endtime);
+                var result = await _service.GetRptLoanInfoLedgerReport(request.empCode, request.companyID);
                 return (List<RptLoanInfoLedgerModel>)result;
             }
 
