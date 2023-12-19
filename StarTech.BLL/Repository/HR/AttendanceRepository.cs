@@ -145,10 +145,7 @@ namespace StarTech.BLL.Repository.HR
             }
         }
 
-        public async Task<IEnumerable<T>> GetData<T, P>(string SName, P parameters)
-        {
-            return await db.QueryAsync<T>(SName, parameters, commandType: CommandType.StoredProcedure);
-        }
+       
     }
 }
 
