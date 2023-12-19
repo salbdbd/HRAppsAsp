@@ -1,4 +1,5 @@
-﻿using Microsoft.Data.SqlClient;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 using StarTech.Application.Interface.RepositoryInterface.HR;
 using StarTech.Application.Interface.RepositoryInterface.Payroll;
 using StarTech.Model.HR;
@@ -192,6 +193,8 @@ namespace StarTech.BLL.Repository.Payroll
 
         public async Task<List<LeaveApplyViewModel>> GetWaitingLeaveForApprove(int compId, string year, string empCode)
         {
+
+
             var paramObj = new
             {
                 CompanyID = compId,
@@ -200,12 +203,15 @@ namespace StarTech.BLL.Repository.Payroll
             };
 
 
-            var applications = await GetData<LeaveApplyViewModel,dynamic>("sp_GetLeaveWaitforApproveAll_NI", paramObj);
+            var applications = await GetData<LeaveApplyViewModel, dynamic>("sp_GetLeaveWaitforApproveAll_NI", paramObj);
 
             return applications.ToList();
-            
+
+
 
         }
+
+
 
         public async Task<bool> UpdateLeaveInfoStatus(LeaveInfoStatusModel lsi)
         {
@@ -333,6 +339,9 @@ namespace StarTech.BLL.Repository.Payroll
         {
             return await db.QueryAsync<T>(SName, parameters, commandType: CommandType.StoredProcedure);
         }
+
+        
+
     }
 }
      

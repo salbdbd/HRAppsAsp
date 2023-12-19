@@ -97,13 +97,13 @@ namespace StarTech.BLL.Repository.HR
         public async Task<IEnumerable<IndEmpInOutModel>> GetIndividualInOutReport(string EmpCode, int CompanyID, string StartDate, string EndDate)
         {
 
-            var ds = await GetData<IndEmpInOutModel, dynamic>("SP_API_GetIndInOutReport_NI", new
+            var ds = await db.QueryAsync<IndEmpInOutModel>("SP_API_GetIndInOutReport_NI", new
             {
                 EmpCode,
                 CompanyID,
                 StartDate,
                 EndDate
-            });
+            }, commandType: CommandType.StoredProcedure);
             return ds.ToList();
 
         }
@@ -122,7 +122,7 @@ namespace StarTech.BLL.Repository.HR
                 };
 
 
-                List<AttendanceSummaryModel> ds = con.Query<AttendanceSummaryModel>("SP_API_GetAttendenceSummary", param: peram, commandType: System.Data.CommandType.StoredProcedure).ToList();
+                List<AttendanceSummaryModel> ds = con.Query<AttendanceSummaryModel>("SP_API_GetAttendenceSummary", param: peram, commandType:CommandType.StoredProcedure).ToList();
                 return ds;
             }
 

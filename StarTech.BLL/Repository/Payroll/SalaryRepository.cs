@@ -12,51 +12,49 @@ namespace StarTech.BLL.Repository.Payroll
 {
     public class SalaryRepository : ISalaryRepository
     {
-        public SalaryRepository()
-        {
-
-        }
+        
+        public IDbConnection _db;
+        public SalaryRepository() => _db = new SqlConnection(Connection.ConnectionString());
+      
         public async Task<IEnumerable<PaySlipModel>> GetPaySlip(string EmpCode, int PeriodID, int CompanyID,string department)
         {
-            using var con = new SqlConnection(Connection.ConnectionString());
-            List<PaySlipModel> result = con.Query<PaySlipModel>("SP_API_Getpayslip_NI",
+            var result = await _db.QueryAsync<PaySlipModel>("SP_API_Getpayslip_NI",
                 param: new
                 {
                     EmpCode,
                     PeriodID,
                     CompanyID,
                     department
-                    
                 },
 
-             commandType: CommandType.StoredProcedure).ToList();
-            return result;
+             commandType: CommandType.StoredProcedure);
+            return result.ToList(); ;
         }
 
         public async Task<IEnumerable<SalaryPeriodModel>> GetPeriodList(int CompanyID)
         {
-            using var con = new SqlConnection(Connection.ConnectionString());
-            List<SalaryPeriodModel> result = con.Query<SalaryPeriodModel>("GetPeriodList_NI",
-                param: new
-                {
-                    CompanyID
-                },
 
-             commandType: CommandType.StoredProcedure).ToList();
-            return result;
+            var result = await _db.QueryAsync<SalaryPeriodModel>("GetPeriodList_NI",
+                 param: new
+                 {
+                     CompanyID
+                 },
+
+              commandType: CommandType.StoredProcedure);
+            return result.ToList(); ;
         }
 
         public async Task<IEnumerable<RptLoanInfoLedgerModel>> GetRptLoanInfoLedgerReport(string empCode, int companyID)
         {
-            using var con = new SqlConnection(Connection.ConnectionString());
-            List<RptLoanInfoLedgerModel> result = con.Query<RptLoanInfoLedgerModel>("spRptLoanInfoLedgerReport",
+       
+            var result = await _db.QueryAsync<RptLoanInfoLedgerModel>("spRptLoanInfoLedgerReport",
                 param: new
                 {
                     empCode,
                     companyID
                 },
-                commandType: CommandType.StoredProcedure).ToList();
-            return result;
+                commandType: CommandType.StoredProcedure);
+            return result.ToList();
         }
     }
 }
