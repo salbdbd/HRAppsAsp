@@ -194,20 +194,14 @@ namespace StarTech.BLL.Repository.Payroll
         public async Task<List<LeaveApplyViewModel>> GetWaitingLeaveForApprove(int compId, string year, string empCode)
         {
 
-
-            var paramObj = new
+            var applications = await db.QueryAsync<LeaveApplyViewModel>("sp_GetLeaveWaitforApproveAll_NI", new
             {
                 CompanyID = compId,
                 YEAR = year,
                 EmpCode = empCode
-            };
-
-
-            var applications = await GetData<LeaveApplyViewModel, dynamic>("sp_GetLeaveWaitforApproveAll_NI", paramObj);
+            }, commandType: CommandType.StoredProcedure);
 
             return applications.ToList();
-
-
 
         }
 
@@ -271,14 +265,13 @@ namespace StarTech.BLL.Repository.Payroll
         public async Task<List<LeaveApplyViewModel>> GetLeaveInfoForHrApprove(int compId, string ReportTo)
         {
 
-           
-
-            using (var con = new SqlConnection(Connection.ConnectionString()))
-            {
-                var applications = await con.QueryAsync<LeaveApplyViewModel>("sp_GetLeaveApproveForHR", param: new { companyid = compId, ReportTo =  ReportTo }, commandType: CommandType.StoredProcedure);
-                return applications.ToList();
-            }
-
+           var applications = await db.QueryAsync<LeaveApplyViewModel>("sp_GetLeaveApproveForHR", 
+               new {
+                   companyid = compId,
+                   ReportTo = ReportTo
+               }, commandType: CommandType.StoredProcedure);
+           return applications.ToList();
+            
         }
 
         public async Task<bool> CancelByHr(int leaveId)
