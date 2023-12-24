@@ -15,8 +15,8 @@ public class TokenResponseDto
     public string? UserName { get; set; }
     public string? EmpName { get; set; }
     public string? LoginPassword { get; set; }
-   // public int? UserTypeId { get; set; }
-   // public string? UserTypeName { get; set; }
+    public int? UserTypeId { get; set; }
+    // public string? UserTypeName { get; set; }
     public string? EmpCode { get; set; }
     public string? IsActive { get; set; }
   //  public int? ClientId { get; set; }

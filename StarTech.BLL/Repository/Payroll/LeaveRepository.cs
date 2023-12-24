@@ -25,6 +25,19 @@ namespace StarTech.BLL.Repository.Payroll
         {
             db = new SqlConnection(Connection.ConnectionString());
         }
+
+        public async Task<List<LeaveApplyViewModel>> GetWaitingLeaveForRecommend(int compId, string empCode)
+        {
+            var paramObj = new
+            {
+                CompanyID = compId,
+                EmpCode = empCode
+            };
+            
+            var applications = await db.QueryAsync<LeaveApplyViewModel>("sp_GetLeaveWaitforRecommendAll", param: paramObj, commandType: CommandType.StoredProcedure);
+            return applications.ToList();
+            
+        }
         public async Task<bool> SaveLeaveApplication(LeaveApplyModel ent)
         {
             SqlConnection con = new SqlConnection(Connection.ConnectionString());
@@ -326,7 +339,7 @@ namespace StarTech.BLL.Repository.Payroll
             }
         }
 
-
+       
 
         public async Task<IEnumerable<T>> GetData<T, P>(string SName, P parameters)
         {

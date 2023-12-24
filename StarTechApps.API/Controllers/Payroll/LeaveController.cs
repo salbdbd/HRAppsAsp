@@ -20,11 +20,7 @@ namespace StarTechApps.API.Controllers.Payroll
         {
             return Ok(await _mediatr.Send(new GetLeaveTypeQuery { gradeValue = gradeValue, gender = gender }));
         }
-        [HttpPost("leave/leave-apply")]
-        public async Task<IActionResult> LeaveApply([FromBody] LeaveApplyModel model)
-        {
-            return Ok(await _mediatr.Send(new LeaveApplyQuery { leaveApply = model }));
-        }
+       
         [HttpGet("leave/Get-Leave-Status/{EmpCode}/{CompanyID}/{PeriodID}")]
         public async Task<IActionResult> GetLeaveStatus(string EmpCode, int CompanyID, int PeriodID)
         {
@@ -34,6 +30,11 @@ namespace StarTechApps.API.Controllers.Payroll
         public async Task<IActionResult> GetLeaveInfo(string EmpCode, int CompanyID)
         {
             return Ok(await _mediatr.Send(new GetLeaveInfoQuery { EmpCode = EmpCode, CompanyID = CompanyID }));
+        }
+        [HttpPost("leave/leave-apply")]
+        public async Task<IActionResult> LeaveApply([FromBody] LeaveApplyModel model)
+        {
+            return Ok(await _mediatr.Send(new LeaveApplyQuery { leaveApply = model }));
         }
         #endregion // Leave Apply end
 
@@ -98,8 +99,8 @@ namespace StarTechApps.API.Controllers.Payroll
             return Ok(await _mediatr.Send(new UpdateAuthorityQuery { updateAuthoRity = lis })); 
         }
        
-
         #endregion //leave approval end
+
 
         #region //leave approval by HR start
         [HttpGet("leave/GetLeaveInfoForHrApprove/{compId}/{ReportTo}")]
@@ -122,8 +123,14 @@ namespace StarTechApps.API.Controllers.Payroll
 
         #endregion //leave approval by HR end
 
-        
 
+        #region //SuperVisor
+        [HttpGet("GetWaitingLeaveForRecommend/{compId}/{empCode}")]
+        public async Task<IActionResult> GetWaitingLeaveForRecommend(int compId,string empCode)
+        {
+            return Ok(await _mediatr.Send(new GetLeaveWaitforRecommendQuery { compId = compId, empCode = empCode }));
+        }
+        #endregion
 
     }
 
