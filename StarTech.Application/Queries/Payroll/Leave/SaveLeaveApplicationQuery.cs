@@ -10,7 +10,7 @@ namespace StarTech.Application.Queries.Payroll.Leave
 {
     public class SaveLeaveApplicationQuery : IRequest<bool>
     {
-        public LeaveApplyModel leaveApply { get; set; }
+        public LeaveApply leaveApply { get; set; }
 
         public class Handler : IRequestHandler<SaveLeaveApplicationQuery, bool>
         {

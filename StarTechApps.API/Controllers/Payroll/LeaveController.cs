@@ -1,13 +1,17 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Dapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 using StarTech.Application.Queries.HR;
 using StarTech.Application.Queries.Payroll.Leave;
+using StarTech.BLL.DBConfiguration;
 using StarTech.Model.Leave;
 using StarTech.Model.Payroll.Leave;
 using StarTechApps.API.Controllers.Common;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Data;
 
 namespace StarTechApps.API.Controllers.Payroll
 {
@@ -32,7 +36,7 @@ namespace StarTechApps.API.Controllers.Payroll
             return Ok(await _mediatr.Send(new GetLeaveInfoQuery { EmpCode = EmpCode, CompanyID = CompanyID }));
         }
         [HttpPost("leave/leave-apply")]
-        public async Task<IActionResult> LeaveApply([FromBody] LeaveApplyModel model)
+        public async Task<IActionResult> LeaveApply([FromBody] LeaveApply model)
         {
             return Ok(await _mediatr.Send(new LeaveApplyQuery { leaveApply = model }));
         }
@@ -58,11 +62,12 @@ namespace StarTechApps.API.Controllers.Payroll
         
         
 
-        [HttpGet("leave/get-leave-application-list/{compId}/{reportTo}")]
-        public async Task<IActionResult> GetLeaveApplicationList(int compId, string reportTo)
+        [HttpGet("leave/get-leave-application-list/{compId}/{reportTo}/{logInID}")]
+        public async Task<IActionResult> GetLeaveApplicationList(int compId, string reportTo, string logInID)
         {
-            return Ok(await _mediatr.Send(new GetLeaveApplicationListQuery { compId = compId , reportTo = reportTo }));
+            return Ok(await _mediatr.Send(new GetLeaveApplicationListQuery { compId = compId , reportTo = reportTo, logInID = logInID }));
         }
+
         #region //leave approval start
         [HttpGet("leave/GetWaitingLeaveForApprove/{compId}/{year}/{empCode}")]
         public async Task<IActionResult> GetWaitingLeaveForApprove(int compId, string year, string empCode)
@@ -73,7 +78,7 @@ namespace StarTechApps.API.Controllers.Payroll
         [HttpPost("leave/approved-leave")]
         public async Task<IActionResult> ApprovedLeave([FromBody] ApprovedModel ent)
         {
-            return Ok(await _mediatr.Send(new UpdateLeaveStatusQuery { UpdateLeaveStatus = ent }));
+            return Ok(await _mediatr.Send(new UpdateRecommandQuery { Lis = ent }));
         }
         [HttpPost("leave/cancel-leave")]
         public async Task<IActionResult> CancelLeave([FromBody] ApprovedModel ent)
@@ -103,10 +108,10 @@ namespace StarTechApps.API.Controllers.Payroll
 
 
         #region //leave approval by HR start
-        [HttpGet("leave/GetLeaveInfoForHrApprove/{compId}/{ReportTo}")]
-        public async Task<IActionResult> GetLeaveInfoForHrApprove(int compId, string ReportTo)
+        [HttpGet("leave/GetLeaveInfoForHrApprove/{compId}/{LoginId}")]
+        public async Task<IActionResult> GetLeaveInfoForHrApprove(int compId, string LoginId)
         {
-            return Ok(await _mediatr.Send(new GetLeaveInfoForHrApproveQuery { compId = compId,ReportTo = ReportTo })); ;
+            return Ok(await _mediatr.Send(new GetLeaveInfoForHrApproveQuery { compId = compId, LoginId = LoginId })); ;
         }
 
         [HttpPost("leave/ApproveByHr")]
@@ -130,7 +135,16 @@ namespace StarTechApps.API.Controllers.Payroll
         {
             return Ok(await _mediatr.Send(new GetLeaveWaitforRecommendQuery { compId = compId, empCode = empCode }));
         }
+
+        [HttpPost("UpdateRecommand")]
+        public async Task<IActionResult> UpdateRecommand(ApprovedModel recom)
+        {
+            return Ok(await _mediatr.Send(new UpdateRecommandQuery { Lis  = recom }));
+        }
         #endregion
+
+
+        
 
     }
 

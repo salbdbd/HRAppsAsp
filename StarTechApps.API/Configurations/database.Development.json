@@ -1,8 +1,8 @@
 {
   "DatabaseSettings": {
-     "ConnectionString": "Server=103.126.14.58,1314;Database=TDSHRM;User Id=sa; Password=T$uDC@2019 ;integrated security=false; TrustServerCertificate=True;",
+     "ConnectionString": "Server=103.126.14.58,1314;Database=TTDSHRM;User Id=sa; Password=T$uDC@2019 ;integrated security=false; TrustServerCertificate=True;",
     //"ConnectionString": "Server=service.startech.info.bd,51024;Database=dbStartech;User Id=sa; Password=Talukder#1999 ;integrated security=false; TrustServerCertificate=True;",
-    //"ConnectionString": "Server=103.126.14.58,1314;Database=dbStartech;User Id=sa; Password=T$uDC@2019 ;integrated security=false; TrustServerCertificate=True;",
+    //"ConnectionString": "Server=103.118.19.110;Database=TDSHRMNEW; User Id=sa; Password=#Travel$2007 ;integrated security=false; TrustServerCertificate=True;",
 
     "Timeout": "2"
   }

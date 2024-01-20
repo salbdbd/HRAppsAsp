@@ -10,8 +10,10 @@ namespace StarTech.Model.Leave
     {
         public int ID { get; set; }
         public string ReqTo { get; set; }
+        public string ReqFrom { get; set; }
         public string Remarks { get; set; }
         public int CompanyID { get; set; }
-        public string ReqFrom { get; set; }
+        public int Type { get; set; }
+        public int Status { get; set; }
     }
 }

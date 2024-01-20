@@ -38,10 +38,40 @@ namespace StarTech.BLL.Repository.Payroll
             return applications.ToList();
             
         }
-        public async Task<bool> SaveLeaveApplication(LeaveApplyModel ent)
+       
+        public async Task<IEnumerable<LeaveTypeModel>> GetLeaveType(int gradeValue, int gender)
+        {
+            var con = new SqlConnection(Connection.ConnectionString());
+            var result = await con.QueryAsync<LeaveTypeModel>("sp_getLeaveType",param: new { GradeValue = gradeValue, gender },
+            commandType: CommandType.StoredProcedure);
+            return result.ToList();
+        }
+
+        public async Task<IEnumerable<LeaveReportModel>> GetLeaveReport(string Empcode, string StartDate, string EndDate, int CompanyID)
+        {
+            var con = new SqlConnection(Connection.ConnectionString());
+            var peram = new
+            {
+                Empcode,
+                StartDate,
+                EndDate,
+                CompanyID
+            };
+            var ds = await con.QueryAsync<LeaveReportModel>("SP_API_GetLeaveReport", param: peram, commandType:CommandType.StoredProcedure);
+            return ds.ToList();
+            
+        }
+        public async Task<IEnumerable<EmpGradeModel>> GetEmpGrade()
+        {
+            var con = new SqlConnection(Connection.ConnectionString());
+            var ds = await con.QueryAsync<EmpGradeModel>("Usp_Api_GetEmpGrade",commandType:CommandType.StoredProcedure);
+            return ds.ToList();
+            
+        }
+        public async Task<bool> SaveLeaveApplication(LeaveApply ent)
         {
             SqlConnection con = new SqlConnection(Connection.ConnectionString());
-            
+
             var leaveEntryObj = new
             {
                 ent.ID,
@@ -72,39 +102,10 @@ namespace StarTech.BLL.Repository.Payroll
             //SP_API_AddEditLeaveApplication
             int rowaffect = await con.ExecuteAsync("SP_API_AddEditLeaveApplication", param: leaveEntryObj, commandType: CommandType.StoredProcedure);
             return rowaffect > 0;
-            
-        } 
-        
-        public async Task<IEnumerable<LeaveTypeModel>> GetLeaveType(int gradeValue, int gender)
-        {
-            var con = new SqlConnection(Connection.ConnectionString());
-            var result = await con.QueryAsync<LeaveTypeModel>("sp_getLeaveType",param: new { Grade = gradeValue, gender },
-            commandType: CommandType.StoredProcedure);
-            return result.ToList();
+
         }
 
-        public async Task<IEnumerable<LeaveReportModel>> GetLeaveReport(string Empcode, string StartDate, string EndDate, int CompanyID)
-        {
-            var con = new SqlConnection(Connection.ConnectionString());
-            var peram = new
-            {
-                Empcode,
-                StartDate,
-                EndDate,
-                CompanyID
-            };
-            var ds = await con.QueryAsync<LeaveReportModel>("SP_API_GetLeaveReport", param: peram, commandType:CommandType.StoredProcedure);
-            return ds.ToList();
-            
-        }
-        public async Task<IEnumerable<EmpGradeModel>> GetEmpGrade()
-        {
-            var con = new SqlConnection(Connection.ConnectionString());
-            var ds = await con.QueryAsync<EmpGradeModel>("Usp_Api_GetEmpGrade",commandType:CommandType.StoredProcedure);
-            return ds.ToList();
-            
-        }
-        public async Task<bool> LeaveApply(LeaveApplyModel leaveApply)
+        public async Task<bool> LeaveApply(LeaveApply leaveApply)
         {
             var con = new SqlConnection(Connection.ConnectionString());
             
@@ -115,7 +116,7 @@ namespace StarTech.BLL.Repository.Payroll
                 LSDate = leaveApply.StartDate,
                 LEDate = leaveApply.EndDate,
                 LADate = leaveApply.ApplicationDate,
-                LTypedID = leaveApply.LeaveTypedID,
+                LTypedID = leaveApply.LeaveTypedID,     
                 leaveApply.AccepteDuration,
                 leaveApply.UnAccepteDuration,
                 referanceEmpcode =leaveApply.ReferanceEmpcode,
@@ -127,6 +128,7 @@ namespace StarTech.BLL.Repository.Payroll
                 leaveApply.Reason,
                 leaveApply.EmgContructNo,
                 leaveApply.EmgAddress,
+                leaveApply.RecommendTo,
                 
             };
             int rowAffect = await con.ExecuteAsync("INSertupdateLeaveInfo_IN", param: applyObj, commandType: CommandType.StoredProcedure);
@@ -135,13 +137,14 @@ namespace StarTech.BLL.Repository.Payroll
 
         }
 
-        public async Task<IEnumerable<LeaveApplicationListModel>> GetLeaveApplicationList(int compId,string reportTo)
+        public async Task<IEnumerable<LeaveApplicationListModel>> GetLeaveApplicationList(int compId,string reportTo,string logInID)
         {
             var con = new SqlConnection(Connection.ConnectionString());
             var peram = new
             {
                 companyid = compId,
-                ReportTo = reportTo
+                ReportTo = reportTo,
+                logInID = logInID
             };
             var applications = await con.QueryAsync<LeaveApplicationListModel>("sp_GetLeaveApproveForHR", param:peram , commandType: CommandType.StoredProcedure);
             return applications.ToList();  
@@ -160,6 +163,25 @@ namespace StarTech.BLL.Repository.Payroll
                 approve.Remarks
             };
             int rowaffect = await con.ExecuteAsync("SP_API_UpdateLeaveStatus", param: peram, commandType: CommandType.StoredProcedure);
+            return rowaffect > 0;
+        } 
+        
+        public async Task<bool> UpdateRecommand(ApprovedModel approve)
+        {
+            SqlConnection con = new SqlConnection(Connection.ConnectionString());
+            var peram = new
+            {
+             
+                approve.ID,
+                approve.ReqFrom,
+                approve.CompanyID,
+                approve.ReqTo,
+                approve.Remarks,
+                approve.Type,
+                Statuss = approve.Status
+                
+            };
+            int rowaffect = await con.ExecuteAsync("API_INSertupdateLeaveInfoStatus", param: peram, commandType: CommandType.StoredProcedure);
             return rowaffect > 0;
         }
     
@@ -207,7 +229,7 @@ namespace StarTech.BLL.Repository.Payroll
         public async Task<List<LeaveApplyViewModel>> GetWaitingLeaveForApprove(int compId, string year, string empCode)
         {
 
-            var applications = await db.QueryAsync<LeaveApplyViewModel>("sp_GetLeaveWaitforApproveAll_NI", new
+            var applications = await db.QueryAsync<LeaveApplyViewModel>("sp_GetLeaveWaitforApproveAll_NI ", new
             {
                 CompanyID = compId,
                 YEAR = year,
@@ -217,8 +239,6 @@ namespace StarTech.BLL.Repository.Payroll
             return applications.ToList();
 
         }
-
-
 
         public async Task<bool> UpdateLeaveInfoStatus(LeaveInfoStatusModel lsi)
         {
@@ -275,13 +295,13 @@ namespace StarTech.BLL.Repository.Payroll
             }
         }
 
-        public async Task<List<LeaveApplyViewModel>> GetLeaveInfoForHrApprove(int compId, string ReportTo)
+        public async Task<List<LeaveApplyViewModel>> GetLeaveInfoForHrApprove(int compId, string LoginId)
         {
 
            var applications = await db.QueryAsync<LeaveApplyViewModel>("sp_GetLeaveApproveForHR", 
                new {
                    companyid = compId,
-                   ReportTo = ReportTo
+                   LoginId = LoginId
                }, commandType: CommandType.StoredProcedure);
            return applications.ToList();
             
@@ -325,22 +345,21 @@ namespace StarTech.BLL.Repository.Payroll
                     LSDate = leaveInfo.StartDate,
                     LEDate = leaveInfo.EndDate,
                     LADate = leaveInfo.ApplicationDate,
-                    LTypedID = leaveInfo.LeaveTypedID,
-                    leaveInfo.Withpay,
                     leaveInfo.AccepteDuration,
                     leaveInfo.UnAccepteDuration,
-                    //leaveInfo.AuthorityEmpcode,
+                    LTypedID = leaveInfo.LeaveTypedID,
+                    leaveInfo.Withpay,
                     leaveInfo.CompanyID,
                     leaveInfo.Grandtype,
-                    leaveInfo.AppType
+                    leaveInfo.AppType,
+                    leaveInfo.ForwardEmpCode
                 };
                 int rowAffect = con.Execute("updateLeaveInfoDHEdite_NI", param: paramObj, commandType: CommandType.StoredProcedure);
                 return rowAffect > 0;
             }
         }
 
-       
-
+      
         public async Task<IEnumerable<T>> GetData<T, P>(string SName, P parameters)
         {
             return await db.QueryAsync<T>(SName, parameters, commandType: CommandType.StoredProcedure);

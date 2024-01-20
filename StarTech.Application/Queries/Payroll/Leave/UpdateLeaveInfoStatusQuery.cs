@@ -31,4 +31,26 @@ namespace StarTech.Application.Queries.Payroll.Leave
             }
         }
     }
+
+    public class UpdateRecommandQuery : IRequest<bool>
+    {
+        public ApprovedModel Lis { get; set; }
+       
+        public class Handler : IRequestHandler<UpdateRecommandQuery, bool>
+        {
+            private readonly ILeaveService _service;
+
+            public Handler(ILeaveService service)
+            {
+                _service = service;
+            }
+
+            public async Task<bool> Handle(UpdateRecommandQuery request, CancellationToken cancellationToken)
+            {
+                var result = await _service.UpdateRecommand(request.Lis);
+                return result;
+
+            }
+        }
+    }
 }

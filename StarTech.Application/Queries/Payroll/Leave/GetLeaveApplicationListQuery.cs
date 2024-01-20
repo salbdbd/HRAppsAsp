@@ -12,6 +12,7 @@ namespace StarTech.Application.Queries.Payroll.Leave
     {
         public int compId { get; set; }
         public string reportTo { get; set; }
+        public string logInID { get; set; }
 
 
         public class Handler : IRequestHandler<GetLeaveApplicationListQuery, List<LeaveApplicationListModel>>
@@ -25,7 +26,7 @@ namespace StarTech.Application.Queries.Payroll.Leave
 
             public async Task<List<LeaveApplicationListModel>> Handle(GetLeaveApplicationListQuery request, CancellationToken cancellationToken)
             {
-                var result = await _service.GetLeaveApplicationList(request.compId,request.reportTo);
+                var result = await _service.GetLeaveApplicationList(request.compId,request.reportTo,request.logInID);
                 return (List<LeaveApplicationListModel>)result;
 
             }
