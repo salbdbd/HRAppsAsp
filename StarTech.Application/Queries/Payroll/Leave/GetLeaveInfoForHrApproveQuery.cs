@@ -13,7 +13,7 @@ namespace StarTech.Application.Queries.Payroll.Leave
     public class GetLeaveInfoForHrApproveQuery : IRequest<List<LeaveApplyViewModel>>
     {
         public int compId { get; set; }
-        public string LoginId { get; set; }
+        //public string LoginId { get; set; }
       
         public class Handler : IRequestHandler<GetLeaveInfoForHrApproveQuery, List<LeaveApplyViewModel>>
         {
@@ -26,7 +26,7 @@ namespace StarTech.Application.Queries.Payroll.Leave
 
             public async Task<List<LeaveApplyViewModel>> Handle(GetLeaveInfoForHrApproveQuery request, CancellationToken cancellationToken)
             {
-                var result = await _service.GetLeaveInfoForHrApprove(request.compId,request.LoginId);
+                var result = await _service.GetLeaveInfoForHrApprove(request.compId);
                 return(List<LeaveApplyViewModel>)result;
 
             }

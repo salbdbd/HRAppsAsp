@@ -108,10 +108,10 @@ namespace StarTechApps.API.Controllers.Payroll
 
 
         #region //leave approval by HR start
-        [HttpGet("leave/GetLeaveInfoForHrApprove/{compId}/{LoginId}")]
-        public async Task<IActionResult> GetLeaveInfoForHrApprove(int compId, string LoginId)
+        [HttpGet("leave/GetLeaveInfoForHrApprove/{compId}")]
+        public async Task<IActionResult> GetLeaveInfoForHrApprove(int compId)
         {
-            return Ok(await _mediatr.Send(new GetLeaveInfoForHrApproveQuery { compId = compId, LoginId = LoginId })); ;
+            return Ok(await _mediatr.Send(new GetLeaveInfoForHrApproveQuery { compId = compId })); ;
         }
 
         [HttpPost("leave/ApproveByHr")]

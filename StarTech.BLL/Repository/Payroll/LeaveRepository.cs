@@ -177,11 +177,12 @@ namespace StarTech.BLL.Repository.Payroll
                 approve.CompanyID,
                 approve.ReqTo,
                 approve.Remarks,
-                approve.Type,
-                Statuss = approve.Status
+                approve.Type
                 
+              
             };
-            int rowaffect = await con.ExecuteAsync("API_INSertupdateLeaveInfoStatus", param: peram, commandType: CommandType.StoredProcedure);
+            //API_INSertupdateLeaveInfoStatus
+            int rowaffect = await con.ExecuteAsync("INSertupdateLeaveInfoStatus", param: peram, commandType: CommandType.StoredProcedure);
             return rowaffect > 0;
         }
     
@@ -365,8 +366,16 @@ namespace StarTech.BLL.Repository.Payroll
             return await db.QueryAsync<T>(SName, parameters, commandType: CommandType.StoredProcedure);
         }
 
-        
-
+        public async Task<List<LeaveApplyViewModel>> GetLeaveInfoForHrApprove(int compId)
+        {
+            var con = new SqlConnection(Connection.ConnectionString());
+            var peram = new
+            {
+                companyid = compId,
+            };
+            var applications = await con.QueryAsync<LeaveApplyViewModel>("sp_GetLeaveApproveForHR", param: peram, commandType: CommandType.StoredProcedure);
+            return applications.ToList();
+        }
     }
 }
      
