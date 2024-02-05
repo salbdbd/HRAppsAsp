@@ -15,10 +15,10 @@ namespace StarTech.Model.Payroll
         public string PeriodName { get; set; }
 
         public double Basic { get; set; }
-        public double Remuneration { get; set; }
+        public double Mobile { get; set; }
         public double HouseRent { get; set; }
-        public double ConvAllo { get; set; }
-        public double MediAllo { get; set; }
+        public double Conveyance { get; set; }
+        public double Medical { get; set; }
         public double GrossPay { get; set; }
         public double CarAllo { get; set; }
         public double SpacilAllo { get; set; }
