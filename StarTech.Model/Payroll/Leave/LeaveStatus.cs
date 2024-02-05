@@ -14,7 +14,8 @@ namespace StarTech.Model.Payroll.Leave
         public int? CompanyID { get; set; }
         public string Remarks { get; set; }
         public string TypeName { get; set; }
-        public int? AccepteDuration { get; set; }
+        public int? AccepteDuration { get; set; }                                    
+        public DateTime ApplicationDate { get; set; }
         public string EmpName { get; set; }
         public string Status { get; set; }
     }
