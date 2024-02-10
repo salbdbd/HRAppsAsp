@@ -23,7 +23,7 @@ namespace StarTech.Application.Interface.ServiceInterface.Payroll
         Task<List<LeaveStatus>> getLeaveInfoStatus(string empCode, int companyId);
         Task<List<LeaveApplyViewModel>> GetWaitingLeaveForApprove(int compId, string year, string empCode);
         Task<List<LeaveApplyViewModel>> GetLeaveInfoForHrApprove(int compId);
-        Task<List<LeaveApplyViewModel>> GetWaitingLeaveForRecommend(int compId, string empCode);
+        Task<List<RecommandModal>> GetWaitingLeaveForRecommend(int compId, string empCode);
 
         Task<bool> SaveLeaveApplication(LeaveApply ent);
         Task<bool> LeaveApply(LeaveApply leaveApply);

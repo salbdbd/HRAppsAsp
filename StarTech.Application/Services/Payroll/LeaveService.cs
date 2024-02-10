@@ -31,7 +31,7 @@ namespace StarTech.Application.Services.Payroll
         public async Task<List<LeaveStatus>> getLeaveInfoStatus(string empCode, int companyId) => await _repository.getLeaveInfoStatus(empCode, companyId);
         public async Task<List<LeaveApplyViewModel>> GetLeaveInfoForHrApprove(int compId) => await _repository.GetLeaveInfoForHrApprove(compId);
         public async Task<List<LeaveApplyViewModel>> GetWaitingLeaveForApprove(int compId, string year, string empCode) => await _repository.GetWaitingLeaveForApprove(compId, year, empCode);
-        public async Task<List<LeaveApplyViewModel>> GetWaitingLeaveForRecommend(int compId, string empCode) => await _repository.GetWaitingLeaveForRecommend(compId, empCode);
+        public async Task<List<RecommandModal>> GetWaitingLeaveForRecommend(int compId, string empCode) => await _repository.GetWaitingLeaveForRecommend(compId, empCode);
        
         public async Task<bool> UpdateLeaveStatus(ApprovedModel leave) => await _repository.UpdateLeaveStatus(leave);
         public async Task<bool> SaveLeaveApplication(LeaveApply model) => await _repository.SaveLeaveApplication(model);

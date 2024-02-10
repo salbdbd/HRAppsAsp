@@ -9,13 +9,13 @@ using System.Threading.Tasks;
 namespace StarTech.Application.Queries.Payroll.Leave
 {
   
-    public class GetLeaveWaitforRecommendQuery : IRequest<List<LeaveApplyViewModel>>
+    public class GetLeaveWaitforRecommendQuery : IRequest<List<RecommandModal>>
     {
         public int compId { get; set; }
         public string empCode { get; set; }
 
 
-        public class Handler : IRequestHandler<GetLeaveWaitforRecommendQuery, List<LeaveApplyViewModel>>
+        public class Handler : IRequestHandler<GetLeaveWaitforRecommendQuery, List<RecommandModal>>
         {
             private readonly ILeaveService _service;
 
@@ -24,10 +24,10 @@ namespace StarTech.Application.Queries.Payroll.Leave
                 _service = service;
             }
 
-            public async Task<List<LeaveApplyViewModel>> Handle(GetLeaveWaitforRecommendQuery request, CancellationToken cancellationToken)
+            public async Task<List<RecommandModal>> Handle(GetLeaveWaitforRecommendQuery request, CancellationToken cancellationToken)
             {
                 var result = await _service.GetWaitingLeaveForRecommend(request.compId, request.empCode);
-                return (List<LeaveApplyViewModel>)result;
+                return (List<RecommandModal>)result;
 
             }
         }
