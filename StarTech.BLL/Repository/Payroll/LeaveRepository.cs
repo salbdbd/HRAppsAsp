@@ -26,7 +26,7 @@ namespace StarTech.BLL.Repository.Payroll
             db = new SqlConnection(Connection.ConnectionString());
         }
 
-        public async Task<List<LeaveApplyViewModel>> GetWaitingLeaveForRecommend(int compId, string empCode)
+        public async Task<List<RecommandModal>> GetWaitingLeaveForRecommend(int compId, string empCode)
         {
             var paramObj = new
             {
@@ -34,7 +34,7 @@ namespace StarTech.BLL.Repository.Payroll
                 EmpCode = empCode
             };
             
-            var applications = await db.QueryAsync<LeaveApplyViewModel>("sp_GetLeaveWaitforRecommendAll", param: paramObj, commandType: CommandType.StoredProcedure);
+            var applications = await db.QueryAsync<RecommandModal>("sp_GetLeaveWaitforRecommendAll", param: paramObj, commandType: CommandType.StoredProcedure);
             return applications.ToList();
             
         }
