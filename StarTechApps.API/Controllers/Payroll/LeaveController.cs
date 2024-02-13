@@ -142,9 +142,38 @@ namespace StarTechApps.API.Controllers.Payroll
             return Ok(await _mediatr.Send(new UpdateRecommandQuery { Lis  = recom }));
         }
         #endregion
+        #region //Message
+        [HttpGet("Get_Message/{CompanyId}/{EmpCode}")]
+        public async Task<IActionResult> Get_Message(int CompanyId, string EmpCode)
+        {
+            return Ok(await _mediatr.Send(new GetMessageQuery { CompanyId = CompanyId, EmpCode = EmpCode }));
+        }
+
+        [HttpPost("Save_Message")]
+        public async Task<IActionResult> Save_Message(SaveWMesage saveWMesage)
+        {
+            return Ok(await _mediatr.Send(new SaveMessageQuery(saveWMesage)));
+        }
+        [HttpPost("ChangeStatus")]
+        public async Task<IActionResult> ChangeStatus(ChangeStatus ChangeStatus)
+        {
+            var con = new SqlConnection(Connection.ConnectionString());
+            var param = new
+            {
+                Options = 3,
+                ChangeStatus.Id,
+                ChangeStatus.Status,
 
 
-        
+            };
+            await con.ExecuteAsync("WMesageGetAndSave_NI", param: param, commandType: CommandType.StoredProcedure);
+            return Ok(new { Message = "Change Status Successfully!" });
+
+
+        }
+        #endregion
+
+
 
     }
 

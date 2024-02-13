@@ -18,7 +18,8 @@ namespace StarTech.Application.Interface.ServiceInterface.Payroll
         Task<IEnumerable<LeaveApplicationListModel>> GetLeaveApplicationList(int compId, string reportTo,string logInID);
         Task<IEnumerable<EmpGradeModel>> GetEmpGrade();
         Task<IEnumerable<GetLeaveStatusModel>> GetLeaveStatus(string EmpCode, int CompanyID, int PeriodID);
-
+        Task<List<GetWMesage>> Get_Message(int CompanyId, string EmpCode);
+        Task<bool> Message_Save(SaveWMesage saveWMesage);
         Task<List<LeaveApplyModel>> GetLeaveInfo(int compId, string empCode);
         Task<List<LeaveStatus>> getLeaveInfoStatus(string empCode, int companyId);
         Task<List<LeaveApplyViewModel>> GetWaitingLeaveForApprove(int compId, string year, string empCode);
