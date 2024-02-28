@@ -17,7 +17,16 @@ namespace StarTechApps.API.Controllers.HR
     [Authorize]
     public class AttendanceController : BaseApiController
     {
-        
+        private readonly IWebHostEnvironment hostingEnvironment;
+        public IDbConnection db;
+        public AttendanceController(IWebHostEnvironment hostingEnvironment)
+        {
+            this.hostingEnvironment = hostingEnvironment;
+            db = new SqlConnection(Connection.ConnectionString());
+        }
+      
+      
+
 
         [HttpPost("atten/approve-attendance/{id}")]
         public async Task<IActionResult> ApproveAttendance(int id)
@@ -57,5 +66,9 @@ namespace StarTechApps.API.Controllers.HR
        
 
 
-    }
+
+
+
+
+}
 }

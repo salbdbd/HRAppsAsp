@@ -21,6 +21,10 @@
     <ProjectReference Include="..\StarTech.BLL\StarTech.BLL.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\uploads\" />
+  </ItemGroup>
+
   <ProjectExtensions><VisualStudio><UserProperties configurations_4database_1production_1json__JsonSchema="https://appliedengdesign.github.io/cnccodes-json-schema/draft/2022-07/schema" /></VisualStudio></ProjectExtensions>
 
 </Project>

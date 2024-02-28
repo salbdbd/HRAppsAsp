@@ -49,5 +49,21 @@ namespace StarTech.Model.Payroll
         public string BankBranch { get; set; }
         public string AccountNo { get; set; }
         public string Payby { get; set; }
+    } 
+    public class EmpCurrentAsset
+    {
+        public string EmpCode { get; set; }
+        public string EmpName { get; set; }
+        public string Designation { get; set; }
+        public string Department { get; set; }
+        public string Categoryname { get; set; }
+        public string AssetName { get; set; }
+        public string Model { get; set; }
+        public string Serial { get; set; }
+        public string Confiruration { get; set; }
+        public string AssainDate { get; set; }
+        public int CompanyID { get; set; }
+  
     }
-}
+ }
+
