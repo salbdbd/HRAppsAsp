@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
+using StarTech.Application.Common.Mailing;
+using StarTech.Application.Interface.RepositoryInterface.Payroll;
 using StarTech.Application.Queries.Payroll;
 using StarTech.Application.Queries.Payroll.Leave;
 using StarTech.BLL.DBConfiguration;
@@ -16,9 +18,12 @@ namespace StarTechApps.API.Controllers.Payroll
     public class SalaryController : BaseApiController
     {
         public IDbConnection _db;
-        public SalaryController()
+        private readonly ISalaryRepository salarydb;
+
+        public SalaryController(ISalaryRepository salarydb)
         {
             _db = new SqlConnection(Connection.ConnectionString());
+            this.salarydb = salarydb;
         }
 
         [HttpGet("salary/get-pay-slip/{empCode}/{periodID}/{companyID}/{department}")]
@@ -55,5 +60,29 @@ namespace StarTechApps.API.Controllers.Payroll
              commandType: CommandType.StoredProcedure);
             return result.ToList(); ;
         }
+
+        [HttpPost]
+        public IActionResult SendEmail(MailRequest request)
+        {
+            salarydb.SendEmail(request);
+            return Ok();
+        }
+
+
+        //[HttpPost("Send")]
+        //public async Task<IActionResult> Send([FromForm] MailRequest request)
+        //{
+        //    try
+        //    {
+        //        await salarydb.SendEmailAsync(request);
+        //        return Ok();
+        //    }
+        //    catch (Exception ex)
+        //    {
+
+        //        throw ex;
+        //    }
+
+        //}
     }
 }

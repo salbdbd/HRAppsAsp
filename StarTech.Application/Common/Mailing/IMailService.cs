@@ -8,6 +8,6 @@ namespace StarTech.Application.Common.Mailing
 {
     public interface IMailService
     {
-       public Task<bool> SendEmail(MailRequest request);
+      
     }
 }
