@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
-using StarTech.Application.Common.Mailing;
 using StarTech.Application.Interface.RepositoryInterface.Payroll;
 using StarTech.Application.Queries.Payroll;
 using StarTech.Application.Queries.Payroll.Leave;
@@ -61,12 +60,12 @@ namespace StarTechApps.API.Controllers.Payroll
             return result.ToList(); ;
         }
 
-        [HttpPost]
-        public IActionResult SendEmail(MailRequest request)
-        {
-            salarydb.SendEmail(request);
-            return Ok();
-        }
+        //[HttpPost]
+        //public IActionResult SendEmail(MailRequest request)
+        //{
+        //    salarydb.SendEmail(request);
+        //    return Ok();
+        //}
 
 
         //[HttpPost("Send")]

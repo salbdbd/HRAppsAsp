@@ -4,7 +4,8 @@
     "EnableVerification": true,
     "From": "mdmoniruddin21123@gmail.com",
     "Host": "smtp.gmail.com",
-    "Password": "moniramonir23",
+    //"Password": "moniramonir23",
+    "Password": "rkvzavkuvfwrpvbz",
     "Port": 587,
     "UserName": "mdmoniruddin21123@gmail.com"
   }

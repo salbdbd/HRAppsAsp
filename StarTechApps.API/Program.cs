@@ -1,15 +1,15 @@
 using MediatR;
 using Microsoft.OpenApi.Models;
-using StarTech.Application.Common.Mailing;
 using StarTech.Application.DependencyInjection;
 using StarTech.Application.Interface.RepositoryInterface.Payroll;
 using StarTech.BLL.Common;
 using StarTech.BLL.DBConfiguration;
 using StarTech.BLL.DependancyInjection;
+using StarTech.BLL.Repository.Mail;
 using StarTech.BLL.Repository.Payroll;
 using StarTechApps.API.Configurations;
-
-
+using StarTech.Application.Interface.RepositoryInterface.Mail;
+using StarTech.Model.Mail;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -20,11 +20,11 @@ var conStr = new ConnectionString
     Server = builder.Configuration["DatabaseSettings:ConnectionString"]
 
 };
-//Connection.Initialize(conStr);
-//var emailConfig = builder.Configuration
-//        .GetSection("MailSettings")
-//        .Get<MailSettings>();
-//builder.Services.AddSingleton(emailConfig);
+Connection.Initialize(conStr);
+
+builder.Services.Configure<MailSettings>(builder.Configuration.GetSection("MailSettings"));
+builder.Services.AddTransient<IMailService,MailReposity>();
+
 builder.Services.AddTransient<ISalaryRepository, SalaryRepository>();
 builder.Services.AddApplicationService();// Dependency Injection For Service Interfaces
 builder.Services.AddAuthService(builder.Configuration);// For JWT Token
@@ -92,5 +92,6 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+app.UseHttpsRedirection();
 
 app.Run();
