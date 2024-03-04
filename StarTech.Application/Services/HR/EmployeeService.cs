@@ -21,9 +21,12 @@ namespace StarTech.Application.Services.HR
         }
         public async Task<IEnumerable<EmpInfoModel>> GetEmpInfo(string empCode, int companyID,string department, string name, string reportTo, int pageNumber, int rowsOfPage) => await _repository.GetEmpInfo(empCode, companyID, department,name, reportTo, pageNumber, rowsOfPage);
 
+        public async Task<IEnumerable<EmpProfile>> GetEmployeeProfileInfo(string empCode) => await _repository.GetEmployeeProfileInfo(empCode);
+
+
         public async Task<IEnumerable<EmploymentViewModel>> GetEmployment(string empCode, int companyID)=> await _repository.GetEmployment(empCode, companyID);
 
-        public async Task<IEnumerable<EmpSearchViewModel>> SearchEmployee(EmpSearchViewModel serachKeys) => await _repository.SearchEmployee(serachKeys);  
-      
+        public async Task<IEnumerable<EmpSearchViewModel>> SearchEmployee(EmpSearchViewModel serachKeys) => await _repository.SearchEmployee(serachKeys);
+
     }
 }

@@ -16,11 +16,7 @@ namespace StarTech.BLL.Repository.HR
 
     public class EmployeeRepository : IEmployeeRepository
     {
-        public EmployeeRepository()
-        {
-
-        }
-
+      
         public async Task<IEnumerable<EmpInfoModel>> GetEmpInfo(string EmpCode, int CompanyID, string Department, string Name, string ReportTo,int PageNumber,int RowsOfPage)
         {
             using var con = new SqlConnection(Connection.ConnectionString());
@@ -39,6 +35,18 @@ namespace StarTech.BLL.Repository.HR
             return result;
 
         }
+
+
+        public async Task<IEnumerable<EmpProfile>> GetEmployeeProfileInfo(string empCode)
+        {
+            using (var connection = new SqlConnection(Connection.ConnectionString()))
+            {
+                await connection.OpenAsync();
+                var result = await connection.QueryAsync<EmpProfile>("usp_FlipBook_All_Ni", new { EmpCode = empCode }, commandType: CommandType.StoredProcedure);
+                return result.ToList();
+            }
+        }
+
         //nizam
         public async Task<IEnumerable<EmploymentViewModel>> GetEmployment(string EmpCode, int CompanyId)
         {
@@ -74,5 +82,7 @@ namespace StarTech.BLL.Repository.HR
             var employees = await con.QueryAsync<EmpSearchViewModel>("sp_search_employee", param: paramObj, commandType: CommandType.StoredProcedure);
             return employees.ToList();
         }
+
+
     }
 }

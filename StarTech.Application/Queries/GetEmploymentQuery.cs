@@ -31,4 +31,26 @@ namespace StarTech.Application.Queries
             }
         }
     }
+
+    public class EmpProfileQuery : IRequest<List<EmpProfile>>
+    {
+        public string? empCode { get; set; }
+
+        public class Handler : IRequestHandler<EmpProfileQuery, List<EmpProfile>>
+        {
+            private readonly IEmployeeService _service;
+
+            public Handler(IEmployeeService service)
+            {
+                _service = service;
+            }
+
+            public async Task<List<EmpProfile>> Handle(EmpProfileQuery request, CancellationToken cancellationToken)
+            {
+
+                return (List<EmpProfile>)await _service.GetEmployeeProfileInfo(request.empCode);
+
+            }
+        }
+    }
 }

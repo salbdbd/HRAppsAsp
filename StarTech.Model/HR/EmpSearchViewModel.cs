@@ -30,6 +30,20 @@ namespace StarTech.Model.HR
         public string TotalEmp { get; set; }
         public string TotalAbsent { get; set; }
         public string Leave { get; set; }
+    } 
+    public class EmpProfile
+    {
+        public string EmpCode { get; set; }
+        public string EmpName { get; set; }
+        public string Department { get; set; }
+        public string Designation { get; set; }
+        public string DateOfJoining { get; set; }
+        public string Grade { get; set; }
+        public byte[] Photo { get; set; }
+ 
+
     }
+
+
 
 }
