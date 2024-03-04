@@ -29,6 +29,8 @@ public class TokenResponseDto
     public string? Department { get; set; }
     public string? ReportTo { get; set; }
     public string? RecommendTo { get; set; }
+    public string? RecommendToEmail { get; set; }
+    public string? EmpMail { get; set; }
   //  public int? BranchId { get; set; }
    // public string? BranchName { get; set; }
   //  public DateTime? CreatedDate { get; set; }

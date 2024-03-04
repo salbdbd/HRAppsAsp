@@ -24,8 +24,6 @@ Connection.Initialize(conStr);
 
 builder.Services.Configure<MailSettings>(builder.Configuration.GetSection("MailSettings"));
 builder.Services.AddTransient<IMailService,MailReposity>();
-
-builder.Services.AddTransient<ISalaryRepository, SalaryRepository>();
 builder.Services.AddApplicationService();// Dependency Injection For Service Interfaces
 builder.Services.AddAuthService(builder.Configuration);// For JWT Token
 builder.Services.AddRepositoryServices();//For Repository Interface

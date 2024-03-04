@@ -1,3 +1,9 @@
 {
-
+  "MailSettings": {
+    "Mail": "engineerbhl2001@gmail.com",
+    "DisplayName": "engineerbhl2001@gmail.com",
+    "Password": "rkvzavkuvfwrpvbz",
+    "Host": "smtp.gmail.com",
+    "Port": 587
+  }
 }
