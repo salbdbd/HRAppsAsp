@@ -45,5 +45,6 @@ namespace StarTech.Model.HR
         public int? EmpTypeID { get; set; }
         public int UserTypeId { get; set; }
         public string RecommendTo { get; set; }
+        public string RecommendToEmpName { get; set; }
     }
 }
