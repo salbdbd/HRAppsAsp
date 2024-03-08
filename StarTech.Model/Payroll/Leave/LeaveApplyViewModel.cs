@@ -13,7 +13,10 @@ namespace StarTech.Model.Payroll.Leave
         public string Designation { get; set; }
         public string Department { get; set; }
         public string TypeName { get; set; }
+    
     }
+
+
 
     public class RecommandModal
     {
@@ -33,5 +36,8 @@ namespace StarTech.Model.Payroll.Leave
         public string Designation { get; set; }
         public string Department { get; set; }
         public string TypeName { get; set; }
+        public string EmpEmail { get; set; }
+        public string RecommandToEmail { get; set; }
+        public string ReportToEmail { get; set; }
     }
 }
