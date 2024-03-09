@@ -14,9 +14,9 @@ namespace StarTech.Model.Leave
     {
         public int ID { get; set; }
         public string EmpCode { get; set; }
-        //public DateTime StartDate { get; set; }
-        //public DateTime EndDate { get; set; }
-        //public DateTime ApplicationDate { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
+        public DateTime ApplicationDate { get; set; }
         public int AccepteDuration { get; set; }
         public int LeaveTypedID { get; set; }
         public int? UnAccepteDuration { get; set; }
@@ -35,7 +35,9 @@ namespace StarTech.Model.Leave
         public string EmgAddress { get; set; }
         public string EmpEmail { get; set; }
         public string RecommandToEmail { get; set; }
+        public string RecommandedName { get; set; }
         public string ReportToEmail { get; set; }
+        public string ReportToEmpName { get; set; }
 
 
     }

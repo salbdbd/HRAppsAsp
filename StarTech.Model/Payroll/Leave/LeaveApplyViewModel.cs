@@ -38,6 +38,10 @@ namespace StarTech.Model.Payroll.Leave
         public string TypeName { get; set; }
         public string EmpEmail { get; set; }
         public string RecommandToEmail { get; set; }
+        public string RecommandedName { get; set; }
         public string ReportToEmail { get; set; }
+        public string ReportToEmpName { get; set; }
+        
+
     }
 }
