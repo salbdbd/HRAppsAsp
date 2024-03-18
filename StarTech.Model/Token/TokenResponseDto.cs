@@ -19,9 +19,9 @@ public class TokenResponseDto
     // public string? UserTypeName { get; set; }
     public string? EmpCode { get; set; }
     public string? IsActive { get; set; }
-  //  public int? ClientId { get; set; }
-  //  public int?  IsHaveSms { get; set; }
-  //  public string? ClientName { get; set; }
+    public int? IsReporting { get; set; }
+     public int? IsHR { get; set; }
+
     public int? CompanyID { get; set; }
     public string? CompanyName { get; set; }
     public int? Gender { get; set; }
@@ -31,14 +31,7 @@ public class TokenResponseDto
     public string? RecommendTo { get; set; }
     public string? RecommendToEmail { get; set; }
     public string? EmpMail { get; set; }
-  //  public int? BranchId { get; set; }
-   // public string? BranchName { get; set; }
-  //  public DateTime? CreatedDate { get; set; }
-  //  public int? CreatedBy { get; set; }
- //   public string?   CreatorName { get; set; }
-  //  public DateTime? ModifiedDate { get; set; }
-  //  public int ? ModifiedBy { get; set; }
- //   public string? ModifierName { get; set; }
+
 }
 
 

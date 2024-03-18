@@ -33,6 +33,31 @@ namespace StarTechApps.API.Controllers.HR
             
         }
 
+        [HttpGet("getAllFlipBookInfo/{empCode}")]
+        public List<object> getAllFlipBookInfo(string empCode)
+        {
+            List<object> dataList = new List<object>();
+            var conn = new SqlConnection(Connection.ConnectionString());
+            var peram = new
+            {
+                empCode
+            };
+            var results = conn.QueryMultiple("usp_FlipBook_All_Ni", param: peram, commandType: System.Data.CommandType.StoredProcedure);
+            dataList.Add(results.ReadFirstOrDefault<object>());
+            dataList.Add(results.Read<object>());
+            dataList.Add(results.Read<object>());
+            dataList.Add(results.Read<object>());
+            //dataList.Add(results.Read<object>());
+            //dataList.Add(results.Read<object>());
+            //dataList.Add(results.Read<object>());
+            //dataList.Add(results.Read<object>());
+            //dataList.Add(results.Read<object>());
+            //dataList.Add(results.Read<object>());
+            //dataList.Add(results.Read<object>());
+            return dataList;
+        }
+
+
     }
 }
 

@@ -82,7 +82,6 @@ namespace StarTech.BLL.Repository.HR
             var employees = await con.QueryAsync<EmpSearchViewModel>("sp_search_employee", param: paramObj, commandType: CommandType.StoredProcedure);
             return employees.ToList();
         }
-
-
+      
     }
 }
