@@ -14,7 +14,7 @@ using System.Data;
 
 namespace StarTechApps.API.Controllers.HR
 {
-    [Authorize]
+    //[Authorize]
     public class AttendanceController : BaseApiController
     {
         private readonly IWebHostEnvironment hostingEnvironment;

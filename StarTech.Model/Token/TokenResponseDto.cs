@@ -21,6 +21,7 @@ public class TokenResponseDto
     public string? IsActive { get; set; }
     public int? IsReporting { get; set; }
      public int? IsHR { get; set; }
+     public int? IsSup { get; set; }
 
     public int? CompanyID { get; set; }
     public string? CompanyName { get; set; }

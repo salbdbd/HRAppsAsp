@@ -42,18 +42,17 @@ namespace StarTechApps.API.Controllers.HR
             {
                 empCode
             };
-            var results = conn.QueryMultiple("usp_FlipBook_All_Ni", param: peram, commandType: System.Data.CommandType.StoredProcedure);
-            dataList.Add(results.ReadFirstOrDefault<object>());
+            var results = conn.QueryMultiple("usp_FlipBook_All_Info_Ni", param: peram, commandType: System.Data.CommandType.StoredProcedure);
             dataList.Add(results.Read<object>());
             dataList.Add(results.Read<object>());
             dataList.Add(results.Read<object>());
-            //dataList.Add(results.Read<object>());
-            //dataList.Add(results.Read<object>());
-            //dataList.Add(results.Read<object>());
-            //dataList.Add(results.Read<object>());
-            //dataList.Add(results.Read<object>());
-            //dataList.Add(results.Read<object>());
-            //dataList.Add(results.Read<object>());
+            dataList.Add(results.Read<object>());
+            dataList.Add(results.Read<object>());
+            dataList.Add(results.Read<object>());
+            dataList.Add(results.Read<object>());
+            dataList.Add(results.Read<object>());
+            dataList.Add(results.Read<object>());
+
             return dataList;
         }
 

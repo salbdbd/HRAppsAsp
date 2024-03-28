@@ -54,30 +54,30 @@ namespace StarTech.BLL.Repository.HR
                 {
                     try
                     {
-                        var vonne = new
-                        {
-                            model.EmpCod,
-                            model.DDMMYYYY,
-                            TYPEE = 0,
-                        };
-                        int test = con.Execute("DeleteManualAttendance", param: vonne, transaction: tran, commandType: CommandType.StoredProcedure);
+                        //var vonne = new
+                        //{
+                        //    model.EmpCod,
+                        //    model.DDMMYYYY,
+                        //    TYPEE = 0,
+                        //};
+                        //int test = con.Execute("DeleteManualAttendance", param: vonne, transaction: tran, commandType: CommandType.StoredProcedure);
 
                         var param = new
                         {
-                            PerID = 0,
+                            //PerID = 0,
                             model.EmpCod,
-                            TYPEE = 0,
+                            //TYPEE = 0,
                             model.Typee,
                             model.DDMMYYYY,
-                            MachineName = "Success",
+                            MachineName = "HRMApps",
                             model.CompanyID,
                             model.punch_time,
                             model.Latitude,
                             model.Longitude,
                             model.GPRSLocation,
                             model.AppType,
-                            model.ApplyTo,
-                            model.Remarks
+                            //model.ApplyTo,
+                            //model.Remarks
 
                         };
                         int result = con.Execute("sp_SaveManualAttendence", param: param, transaction: tran, commandType: CommandType.StoredProcedure);

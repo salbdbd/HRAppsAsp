@@ -10,7 +10,7 @@ namespace StarTech.Model.Attendance
 
     public class ManualAttendenceModel
     {
-        public int ID { get; set; }
+        //public int ID { get; set; }
         public string EmpCod { get; set; }
         public string DDMMYYYY { get; set; }
         public string MachineName { get; set; }
@@ -22,7 +22,7 @@ namespace StarTech.Model.Attendance
         public string GPRSLocation { get; set; }
         public string AppType { get; set; }
         public string ApplyTo { get; set; }
-        public string Remarks { get; set; }
+        //public string Remarks { get; set; }
 
     }
 }
