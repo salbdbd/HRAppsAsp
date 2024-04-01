@@ -32,6 +32,8 @@ public class TokenResponseDto
     public string? RecommendTo { get; set; }
     public string? RecommendToEmail { get; set; }
     public string? EmpMail { get; set; }
+    public string? AppLatitude { get; set; }
+    public string? AppLongitude { get; set; }
 
 }
 
