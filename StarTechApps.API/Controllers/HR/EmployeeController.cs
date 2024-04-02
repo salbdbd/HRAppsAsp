@@ -50,8 +50,8 @@ namespace StarTechApps.API.Controllers.HR
             dataList.Add(results.Read<object>());
             dataList.Add(results.Read<object>());
             dataList.Add(results.Read<object>());
-            dataList.Add(results.Read<object>());
-            dataList.Add(results.Read<object>());
+            //dataList.Add(results.Read<object>());
+            //dataList.Add(results.Read<object>());
 
             return dataList;
         }
