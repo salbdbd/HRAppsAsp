@@ -7,6 +7,7 @@ using StarTech.Model.HR.Attendance;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -144,7 +145,22 @@ namespace StarTech.BLL.Repository.HR
             }
         }
 
-       
+        public async Task<IEnumerable<ChickAttendaceModel>> ChickAttendance(string empCode)
+        {
+            using (var con = new SqlConnection(Connection.ConnectionString()))
+            {
+                var peram = new
+                {
+                  empCode
+
+                };
+                var ds = con.Query<ChickAttendaceModel>("GetIsAttendance_NI", param: peram, commandType: System.Data.CommandType.StoredProcedure);
+                return ds;
+            }
+        }
+
+        
+
     }
 }
 

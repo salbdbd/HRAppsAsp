@@ -26,4 +26,10 @@ namespace StarTech.Model.Attendance
         public string Status { get; set; }           
         public string Location { get; set; }        
     }
+
+    public class ChickAttendaceModel
+    {
+        public int IsAttendance { get; set; }
+        public int IsLeave { get; set; }
+    }
 }

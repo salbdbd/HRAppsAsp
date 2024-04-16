@@ -11,6 +11,7 @@ namespace StarTech.Application.Interface.ServiceInterface.HR
     public interface IAttendanceService
     {
         Task<IEnumerable<IndEmpInOutModel>> GetIndividualInOutReport(string empCode, int companyID, string startDate, string endDate);
+        Task<IEnumerable<ChickAttendaceModel>> ChickAttendance(string empCode);
         Task<bool> ApproveAttendance(int id);
         Task<bool> RejectAttendance(int id);
         Task<bool> SaveManualAttendence(ManualAttendenceModel model);
