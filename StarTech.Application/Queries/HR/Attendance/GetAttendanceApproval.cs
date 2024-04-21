@@ -35,25 +35,5 @@ namespace StarTech.Application.Queries.HR.Attendance
         }
     }
 
-    public class ChickAttendance : IRequest<List<ChickAttendaceModel>>
-    {
-        public string empCode { get; set; }
-
-        public class Handler : IRequestHandler<ChickAttendance, List<ChickAttendaceModel>>
-        {
-            private readonly IAttendanceService _service;
-
-            public Handler(IAttendanceService service)
-            {
-                _service = service;
-            }
-
-            public async Task<List<ChickAttendaceModel>> Handle(ChickAttendance request, CancellationToken cancellationToken)
-            {
-                var result = await _service.ChickAttendance(request.empCode);
-                return (List<ChickAttendaceModel>)result;
-
-            }
-        }
-    }
+    
 }

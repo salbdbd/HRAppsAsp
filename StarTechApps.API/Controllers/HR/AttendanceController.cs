@@ -12,6 +12,7 @@ using StarTech.Model.Leave;
 using StarTechApps.API.Controllers.Common;
 using System.ComponentModel.Design;
 using System.Data;
+using System.Reflection.Emit;
 
 namespace StarTechApps.API.Controllers.HR
 {
@@ -63,20 +64,21 @@ namespace StarTechApps.API.Controllers.HR
         public async Task<IActionResult> GetAttendanceApproval(int companyID,string applyTo,string fromDate,string toDate ,int anyDate)
          {
             return Ok(await _mediatr.Send(new GetAttendanceApproval { companyID = companyID, applyTo = applyTo, fromDate = fromDate, toDate = toDate, anyDate = anyDate }));
-        } 
-        
-        
-        [HttpGet("atten/ChickAddTendance/{empCode}")]
-        public async Task<IActionResult> ChickAttendance(string empCode)
-         {
-            return Ok(await _mediatr.Send(new ChickAttendance { empCode = empCode }));
         }
-       
 
+        [HttpGet("atten/ChickAttendance/{empCode}/{CompanyID}/{Types}")]
+        public async Task<IActionResult> ChickAttendance(string empCode, int CompanyID, int Types)
+        {
+            using var con = new SqlConnection(Connection.ConnectionString());
+            var parem = new
+            {
+                EmpCode = empCode,
+                CompanyID = CompanyID,
+                Types = Types
+            };
+            var ds = await con.QueryAsync("SP_API_APPSatendance", parem, commandType: CommandType.StoredProcedure);
+            return Ok(ds);
+        }
 
-
-
-
-
-}
+    }
 }

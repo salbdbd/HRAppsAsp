@@ -2,6 +2,7 @@
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Primitives;
 using StarTech.Application.Interface.RepositoryInterface.HR;
+using StarTech.Application.Queries.HR.Attendance;
 using StarTech.Model.Attendance;
 using StarTech.Model.HR.Attendance;
 using System;
@@ -158,9 +159,6 @@ namespace StarTech.BLL.Repository.HR
                 return ds;
             }
         }
-
-        
-
     }
 }
 

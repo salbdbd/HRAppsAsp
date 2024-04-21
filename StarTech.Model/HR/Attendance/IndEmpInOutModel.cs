@@ -29,7 +29,6 @@ namespace StarTech.Model.Attendance
 
     public class ChickAttendaceModel
     {
-        public int IsAttendance { get; set; }
-        public int IsLeave { get; set; }
+        public int isCheek { get; set; }
     }
 }

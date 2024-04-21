@@ -25,7 +25,7 @@ namespace StarTech.Application.Services.HR
         public async Task<IEnumerable<AttendanceSummaryModel>> GetSummaryReport(string empCode, int periodID, int companyID) => await _repository.GetSummaryReport(empCode, periodID, companyID);
         public async Task<IEnumerable<AttendanceApprovalModel>> GetAttendanceApproval(int companyID, string applyTo, string fromDate, string toDate, int anyDate) => await _repository.GetAttendanceApproval(companyID,applyTo,fromDate,toDate,anyDate);
 
-        public async Task<IEnumerable<ChickAttendaceModel>> ChickAttendance(string empCode) => await _repository.ChickAttendance(empCode);
-        
+
+       
     }
 }
