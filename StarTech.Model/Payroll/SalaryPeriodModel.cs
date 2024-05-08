@@ -9,6 +9,7 @@ namespace StarTech.Model.Payroll
     public class SalaryPeriodModel
     {
         public int ID { get; set; }
+        public string PeriodID { get; set; }
         public string PeriodName { get; set; }
         public string MonthName { get; set; }
         public string TaxYear { get; set; }
